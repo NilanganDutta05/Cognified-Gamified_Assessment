@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../css/game.css">
+  <title>Motion Game</title>
+</head>
+<body>
+
+<div class="header-container">
+  <h2>Motion Challenge</h2>
+  <button id="theme-toggle">Dark Mode</button>
+</div>
+
+<div class="stats-container">
+  <p id="level-display">Level: 1</p>
+  <p id="score-display">Score: 0</p>
+  <p id="highscore-display">High Score: 0</p>
+</div>
+<div class="stats-container">
+  <p id="timer">Time: 60</p>
+  <p id="moves">Moves: 0</p>
+  <button id="restart-btn" class="skip-btn" title="Restart Level" aria-label="Restart Level">🔄</button>
+  <button id="skip-btn" class="skip-btn">Skip (-1 pt)</button>
+</div>
+
+<p class="instructions">
+Click or mouse-over elements to select them.<br>
+Click the displayed arrows to slide the block or the ball.
+</p>
+
+<div id="grid" class="grid"></div>
+
+<!-- Success Overlay -->
+<div id="level-overlay" class="overlay">
+  <div class="overlay-content">
+    <h3>Level Complete!</h3>
+    <button id="next-level-btn">Next Level</button>
+  </div>
+</div>
+
+<script type="module" src="../js/games/motion.js"></script>
+
+</body>
+</html>

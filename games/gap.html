@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../css/game.css">
+  <title>Deductive Challenge</title>
+</head>
+<body>
+  <div class="header-container">
+    <h2>Deductive Challenge</h2>
+    <button id="theme-toggle">Dark Mode</button>
+  </div>
+
+  <div class="stats-container">
+    <p id="level-display">Level: 1</p>
+    <p id="score-display">Score: 0</p>
+    <p id="highscore-display">High Score: 0</p>
+  </div>
+
+  <section class="deductive-panel" aria-live="polite">
+    <h3 class="deductive-title">Please choose the correct answer</h3>
+
+    <div id="deductive-grid" class="deductive-grid"></div>
+
+    <div id="deductive-options" class="deductive-options"></div>
+
+    <p id="feedback" class="gap-feedback"></p>
+  </section>
+
+  <div id="level-overlay" class="overlay">
+    <div class="overlay-content">
+      <h3 id="overlay-message">Correct!</h3>
+      <button id="next-level-btn">Next Puzzle</button>
+    </div>
+  </div>
+
+  <script src="../js/games/gap.js"></script>
+</body>
+</html>

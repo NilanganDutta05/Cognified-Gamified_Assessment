@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="../css/game.css">
+  <title>Gap Challenge</title>
+</head>
+<body>
+  <div class="header-container">
+    <h2>Gap Challenge</h2>
+    <button id="theme-toggle">Dark Mode</button>
+  </div>
+
+  <div class="stats-container">
+    <p id="level-display">Level: 1</p>
+    <p id="score-display">Score: 0</p>
+    <p id="highscore-display">High Score: 0</p>
+  </div>
+
+  <div class="stats-container">
+    <p id="timer">Time: 60</p>
+    <button id="restart-btn" class="skip-btn" title="Restart Challenge" aria-label="Restart Challenge">🔄</button>
+    <button id="skip-btn" class="skip-btn">Skip (-1 pt)</button>
+  </div>
+
+  <p class="instructions">
+    Deduce the missing value in each sequence.<br>
+    Choose the best option before time runs out.
+  </p>
+
+  <section class="gap-panel" aria-live="polite">
+    <h3 id="prompt-title">Find the missing value</h3>
+    <p id="sequence-text" class="gap-sequence">2, 4, __, 8, 10</p>
+    <div id="options" class="gap-options"></div>
+    <p id="feedback" class="gap-feedback"></p>
+  </section>
+
+  <div id="level-overlay" class="overlay">
+    <div class="overlay-content">
+      <h3 id="overlay-message">Correct!</h3>
+      <button id="next-level-btn">Next Level</button>
+    </div>
+  </div>
+
+  <script src="../js/games/gap.js"></script>
+</body>
+</html>

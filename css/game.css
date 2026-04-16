@@ -397,3 +397,63 @@ p.instructions {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
+
+/* Gap Challenge */
+.gap-panel {
+  width: 100%;
+  max-width: 500px;
+  background: var(--board-bg);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.gap-panel h3 {
+  margin: 0 0 12px 0;
+  font-size: clamp(20px, 4.5vw, 28px);
+}
+
+.gap-sequence {
+  margin: 0;
+  font-size: clamp(20px, 6vw, 34px);
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: var(--header-text);
+}
+
+.gap-options {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.gap-option {
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  background: var(--text-main);
+  color: var(--board-bg);
+  font-weight: 800;
+  font-size: clamp(16px, 4vw, 20px);
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.gap-option:hover:not(:disabled) {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.gap-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.gap-feedback {
+  min-height: 24px;
+  margin: 14px 0 0;
+  font-weight: 700;
+  color: var(--text-muted);
+}

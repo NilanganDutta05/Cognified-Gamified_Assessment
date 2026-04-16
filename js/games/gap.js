@@ -1,3 +1,29 @@
+const TOKENS = {
+  greenCircle: { shape: "circle", color: "green" },
+  blueTriangle: { shape: "triangle", color: "blue" },
+  redSquare: { shape: "square", color: "red" }
+};
+
+const puzzles = [
+  {
+    cells: ["greenCircle", null, null, null, null, null, "blueTriangle", null, "greenCircle"],
+    answer: "blueTriangle",
+    options: ["greenCircle", "blueTriangle", "redSquare"]
+  },
+  {
+    cells: ["redSquare", null, "redSquare", null, null, null, "blueTriangle", null, "blueTriangle"],
+    answer: "greenCircle",
+    options: ["greenCircle", "blueTriangle", "redSquare"]
+  },
+  {
+    cells: ["greenCircle", null, "blueTriangle", null, null, null, "redSquare", null, "greenCircle"],
+    answer: "blueTriangle",
+    options: ["redSquare", "blueTriangle", "greenCircle"]
+  },
+  {
+    cells: ["blueTriangle", null, "greenCircle", null, null, null, "greenCircle", null, "redSquare"],
+    answer: "redSquare",
+    options: ["greenCircle", "redSquare", "blueTriangle"]
 const TIMER_DURATION = 60;
 
 const puzzleTemplates = [

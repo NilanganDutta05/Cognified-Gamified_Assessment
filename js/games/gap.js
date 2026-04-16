@@ -1,42 +1,16 @@
 const TOKENS = {
-  greenCircle: { shape: "circle", color: "green" },
-  blueTriangle: { shape: "triangle", color: "blue" },
-  redSquare: { shape: "square", color: "red" }
+  greenCircle: { shape: "circle", color: "green", label: "Green Circle" },
+  blueTriangle: { shape: "triangle", color: "blue", label: "Blue Triangle" },
+  redSquare: { shape: "square", color: "red", label: "Red Square" }
 };
 
-const puzzles = [
-  {
-    // diagonals mirror: top-left == bottom-right, top-right == bottom-left
-    cells: ["greenCircle", "redSquare", "blueTriangle", "blueTriangle", null, "redSquare", "blueTriangle", "redSquare", "greenCircle"],
-    answer: "greenCircle",
-    options: ["greenCircle", "blueTriangle", "redSquare"]
-  },
-  {
-    // rows repeat same token type by color sequence
-    cells: ["greenCircle", "greenCircle", "greenCircle", "blueTriangle", null, "blueTriangle", "redSquare", "redSquare", "redSquare"],
-    answer: "blueTriangle",
-    options: ["greenCircle", "redSquare", "blueTriangle"]
-  },
-  {
-    // columns repeat same token
-    cells: ["redSquare", "blueTriangle", "greenCircle", "redSquare", null, "greenCircle", "redSquare", "blueTriangle", "greenCircle"],
-    answer: "blueTriangle",
-    options: ["blueTriangle", "redSquare", "greenCircle"]
-  },
-  {
-    // corner pairs imply center is missing red square
-    cells: ["greenCircle", "blueTriangle", "greenCircle", "blueTriangle", null, "blueTriangle", "greenCircle", "blueTriangle", "greenCircle"],
-    answer: "redSquare",
-    options: ["greenCircle", "redSquare", "blueTriangle"]
-  }
-];
+const tokenKeys = Object.keys(TOKENS);
 
 const state = {
   level: 1,
   score: 0,
   highScore: Number(localStorage.getItem("deductiveHighScore") || 0),
-  currentPuzzle: null,
-  usedPuzzleIndexes: []
+  currentPuzzle: null
 };
 
 const levelDisplay = document.getElementById("level-display");
@@ -65,18 +39,46 @@ function saveHighScore() {
   }
 }
 
-function getNextPuzzle() {
-  if (state.usedPuzzleIndexes.length === puzzles.length) {
-    state.usedPuzzleIndexes = [];
+function shuffle(array) {
+  const values = [...array];
+
+  for (let i = values.length - 1; i > 0; i -= 1) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [values[i], values[randomIndex]] = [values[randomIndex], values[i]];
   }
 
-  const remaining = puzzles
-    .map((_, index) => index)
-    .filter((index) => !state.usedPuzzleIndexes.includes(index));
+  return values;
+}
 
-  const selected = remaining[Math.floor(Math.random() * remaining.length)];
-  state.usedPuzzleIndexes.push(selected);
-  return puzzles[selected];
+function generateRowsPattern([a, b, c]) {
+  return [a, a, a, b, b, b, c, c, c];
+}
+
+function generateColumnsPattern([a, b, c]) {
+  return [a, b, c, a, b, c, a, b, c];
+}
+
+function generateLatinPattern([a, b, c]) {
+  return [a, b, c, b, c, a, c, a, b];
+}
+
+function generatePuzzle() {
+  const randomizedTokens = shuffle(tokenKeys);
+  const builders = [generateRowsPattern, generateColumnsPattern, generateLatinPattern];
+  const buildGrid = builders[Math.floor(Math.random() * builders.length)];
+
+  const fullGrid = buildGrid(randomizedTokens);
+  const missingIndex = Math.floor(Math.random() * fullGrid.length);
+  const answer = fullGrid[missingIndex];
+
+  const cells = [...fullGrid];
+  cells[missingIndex] = null;
+
+  return {
+    cells,
+    answer,
+    options: shuffle(tokenKeys)
+  };
 }
 
 function buildToken(tokenKey) {
@@ -115,9 +117,8 @@ function disableOptions() {
 
 function renderOptions() {
   optionsElement.innerHTML = "";
-  const shuffled = [...state.currentPuzzle.options].sort(() => Math.random() - 0.5);
 
-  shuffled.forEach((tokenKey) => {
+  state.currentPuzzle.options.forEach((tokenKey) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "deductive-option";
@@ -145,8 +146,9 @@ function handleAnswer(selected) {
     showOverlay("Correct!");
   } else {
     state.score = Math.max(0, state.score - 1);
-    feedbackText.textContent = "Not correct. Study the pattern and try the next one.";
-    showOverlay("Nice Try!");
+    const answerLabel = TOKENS[state.currentPuzzle.answer].label;
+    feedbackText.textContent = `Wrong answer. Correct answer: ${answerLabel}.`;
+    showOverlay(`Correct: ${answerLabel}`);
   }
 
   saveHighScore();
@@ -154,7 +156,7 @@ function handleAnswer(selected) {
 }
 
 function loadPuzzle() {
-  state.currentPuzzle = getNextPuzzle();
+  state.currentPuzzle = generatePuzzle();
   feedbackText.textContent = "";
   renderGrid();
   renderOptions();
@@ -179,7 +181,6 @@ function skipPuzzle() {
 function resetGame() {
   state.level = 1;
   state.score = 0;
-  state.usedPuzzleIndexes = [];
   feedbackText.textContent = "Game reset. New puzzle loaded.";
   hideOverlay();
   loadPuzzle();

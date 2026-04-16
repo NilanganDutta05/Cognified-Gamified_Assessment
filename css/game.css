@@ -484,8 +484,8 @@ p.instructions {
 
 .deductive-cell {
   aspect-ratio: 1;
-  background: #f2f2f2;
-  border: 1px solid #d7d7d7;
+  background: var(--cell-bg);
+  border: 1px solid var(--cell-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -494,7 +494,7 @@ p.instructions {
 .missing-mark {
   font-size: clamp(42px, 9vw, 78px);
   font-weight: 800;
-  color: #515151;
+  color: var(--text-main);
 }
 
 .deductive-options {
@@ -506,20 +506,30 @@ p.instructions {
 }
 
 .deductive-option {
-  background: #f2f2f2;
-  border: 1px solid #d7d7d7;
-  border-radius: 2px;
+  background: var(--cell-bg);
+  border: 1px solid var(--cell-border);
+  border-radius: 8px;
   padding: 16px;
   min-height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, opacity 0.2s ease;
 }
 
 .deductive-option:hover:not(:disabled) {
   transform: translateY(-2px);
+}
+
+
+.deductive-option:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.deductive-cell.missing {
+  background: color-mix(in srgb, var(--cell-bg) 80%, var(--board-bg) 20%);
 }
 
 .token {

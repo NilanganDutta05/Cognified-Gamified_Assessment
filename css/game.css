@@ -405,7 +405,7 @@ p.instructions {
   background: var(--board-bg);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  padding: 20px;
+  padding: clamp(12px, 3vw, 20px);
   box-sizing: border-box;
 }
 
@@ -461,11 +461,11 @@ p.instructions {
 /* Deductive Challenge */
 .deductive-panel {
   width: 100%;
-  max-width: 620px;
+  max-width: 680px;
   background: var(--board-bg);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  padding: 20px;
+  padding: clamp(12px, 3vw, 20px);
   box-sizing: border-box;
 }
 
@@ -475,11 +475,11 @@ p.instructions {
 }
 
 .deductive-grid {
-  width: min(420px, 94vw);
+  width: min(420px, 100%);
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  gap: clamp(6px, 1.5vw, 10px);
 }
 
 .deductive-cell {
@@ -498,19 +498,19 @@ p.instructions {
 }
 
 .deductive-options {
-  width: min(520px, 100%);
+  width: min(560px, 100%);
   margin: 26px auto 0;
   display: grid;
-  grid-template-columns: repeat(3, minmax(90px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(3, minmax(70px, 1fr));
+  gap: clamp(10px, 2.8vw, 18px);
 }
 
 .deductive-option {
   background: var(--cell-bg);
   border: 1px solid var(--cell-border);
   border-radius: 8px;
-  padding: 16px;
-  min-height: 110px;
+  padding: clamp(10px, 2.6vw, 16px);
+  min-height: clamp(84px, 20vw, 110px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -533,8 +533,8 @@ p.instructions {
 }
 
 .token {
-  width: 72px;
-  height: 72px;
+  width: clamp(42px, 11vw, 72px);
+  height: clamp(42px, 11vw, 72px);
 }
 
 .token.circle {
@@ -548,9 +548,9 @@ p.instructions {
 .token.triangle {
   width: 0;
   height: 0;
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
-  border-bottom: 72px solid #0e48a8;
+  border-left: clamp(24px, 6vw, 40px) solid transparent;
+  border-right: clamp(24px, 6vw, 40px) solid transparent;
+  border-bottom: clamp(42px, 11vw, 72px) solid #0e48a8;
 }
 
 .token.green.circle,
@@ -578,4 +578,19 @@ p.instructions {
 
 .token.red.triangle {
   border-bottom-color: #f40005;
+}
+
+
+@media (max-width: 480px) {
+  .deductive-title {
+    font-size: clamp(20px, 7vw, 30px);
+  }
+
+  .deductive-option {
+    border-radius: 6px;
+  }
+
+  .stats-container {
+    flex-wrap: wrap;
+  }
 }
